@@ -58,7 +58,7 @@ db-update:
 	@$(PHP) bin/console doctrine:schema:update --force
 
 load-fixtures:
-	@$(PHP) bin/console doctrine:fixtures:load -n --purge-with-truncate
+	@$(PHP) bin/console hautelook:fixtures:load -n --purge-with-truncate
 
 init-fixtures: db-update load-fixtures
 cc: c=c:c ## Clear the cache

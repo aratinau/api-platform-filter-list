@@ -1,0 +1,4 @@
+App\Entity\CourierFile:
+    courier_file_{1..30}:
+        type: <randomElement(['DOCUMENT', 'ANSWER_LEVEL_1', 'ANSWER_LEVEL_2', 'ANSWER_DEFINITIVE'])>
+        filePath: <filePath()>
