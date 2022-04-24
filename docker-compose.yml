@@ -1,6 +1,40 @@
 version: '3'
 
 services:
+  php:
+    #build:
+    #context: .
+    build: docker/php
+    depends_on:
+      - database
+    restart: unless-stopped
+    volumes:
+      - .:/srv/api:rw
+      - ./docker/php/conf.d/api-platform.dev.ini/:/usr/local/etc/php/conf.d/api-platform.ini
+      - ./var:/srv/api/var:rw
+    environment:
+      APP_ENV: dev
+    healthcheck:
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      #start_period: 30s
+    networks:
+      - dev
+
+  nginx:
+    build: docker/nginx
+    depends_on:
+      - php
+    volumes:
+      - ./public:/srv/api/public:ro
+      # next line file default.dev.conf is used
+      - ./docker/nginx/conf.d/default.dev.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8000:80"
+    networks:
+      - dev
+
 ###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-13}-alpine
@@ -14,6 +48,9 @@ services:
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
 ###< doctrine/doctrine-bundle ###
+
+networks:
+  dev:
 
 volumes:
 ###> doctrine/doctrine-bundle ###
