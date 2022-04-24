@@ -40,8 +40,8 @@ class OrderByListFilter extends AbstractContextAwareFilter
             return;
         }
 
-        $field = key($value);
-        $orderList = explode(',', $value[$field]);
+        //$field = key($value);
+        //$orderList = explode(',', $value[$field]);
 
         $alias = $queryBuilder->getRootAliases()[0];
         $queryBuilder
