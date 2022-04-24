@@ -2,8 +2,6 @@ version: '3'
 
 services:
   php:
-    #build:
-    #context: .
     build: docker/php
     depends_on:
       - database
@@ -18,7 +16,6 @@ services:
       interval: 10s
       timeout: 3s
       retries: 3
-      #start_period: 30s
     networks:
       - dev
 
@@ -43,10 +40,14 @@ services:
       # You should definitely change the password in production
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
       POSTGRES_USER: ${POSTGRES_USER:-symfony}
+    ports:
+      - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
+    networks:
+      - dev
 ###< doctrine/doctrine-bundle ###
 
 networks:
