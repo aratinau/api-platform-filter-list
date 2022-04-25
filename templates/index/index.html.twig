@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IndexController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+</style>
+
+    <script>
+        const eventSource = new EventSource("{{ mercure('https://example.com/books/1')|escape('js') }}");
+        eventSource.onmessage = event => {
+            // Will be called every time an update is published by the server
+            console.log(JSON.parse(event.data));
+        }
+    </script>
+
+<div class="example-wrapper">
+    <h1>This is {{ controller_name }}</h1>
+</div>
+{% endblock %}
