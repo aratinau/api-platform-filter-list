@@ -12,7 +12,7 @@ class PublishController extends AbstractController
     public function publish(HubInterface $hub): Response
     {
         $update = new Update(
-            'https://example.com/books/1',
+            'http://mercure/books/1',
             json_encode(['status' => 'OutOfStock'])
         );
 
